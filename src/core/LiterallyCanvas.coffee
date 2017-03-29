@@ -77,6 +77,10 @@ module.exports = class LiterallyCanvas
 
     @respondToSizeChange = ->
 
+    @on('toolChange', (data) =>
+      @setCursor(data.tool.cursor)
+    )
+
   bindToElement: (containerEl) ->
     if @containerEl
       console.warn("Trying to bind Literally Canvas to a DOM element more than once is unsupported.")
@@ -152,6 +156,12 @@ module.exports = class LiterallyCanvas
       @tool.didBecomeActive(this)
 
   setShapesInProgress: (newVal) -> @_shapesInProgress = newVal
+
+  setCursor: (cursor) ->
+    if cursor
+      @canvas.style.cursor = cursor
+    else
+      @canvas.style.cursor = 'default'
 
   pointerDown: (x, y) ->
     p = @clientCoordsToDrawingCoords(x, y)
