@@ -62,6 +62,7 @@ $selectedColor: lighten(#3cb0fd, 20%);
 .literally {
   position: relative;
   background-color: $canvasBackground;
+  background-image: url('../img/transparent-pattern.png');
   min-height: 400px;
 
   -webkit-touch-callout: none;
