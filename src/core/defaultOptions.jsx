@@ -17,9 +17,6 @@ module.exports = {
   snapshot: null,
   onInit: function() { },
   tools: [
-    require('../tools/Pan'),
-    require('../tools/SelectCut'),
-    require('../tools/Coordinate'),
     require('../tools/Pencil'),
     require('../tools/Eraser'),
     require('../tools/Line'),
@@ -27,7 +24,7 @@ module.exports = {
     require('../tools/Ellipse'),
     require('../tools/Text'),
     require('../tools/Polygon'),
-
+    require('../tools/Pan'),
     require('../tools/Eyedropper')
   ]
 }

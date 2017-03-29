@@ -151,12 +151,6 @@ module.exports = class LiterallyCanvas
     if @isBound
       @tool.didBecomeActive(this)
 
-  setCursor: (cursor) ->
-    if cursor
-      @canvas.style.cursor = cursor
-    else
-      @canvas.style.cursor = 'default'
-
   setShapesInProgress: (newVal) -> @_shapesInProgress = newVal
 
   pointerDown: (x, y) ->
