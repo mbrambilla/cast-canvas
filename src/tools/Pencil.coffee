@@ -16,7 +16,6 @@ module.exports = class Pencil extends ToolWithStroke
     @color = lc.getColor('primary')
     @currentShape = @makeShape()
     @currentShape.addPoint(@makePoint(x, y, lc))
-    @lastEventTime = Date.now()
 
   continue: (x, y, lc) ->
     @pendingPoints.push({x,y})
