@@ -34,7 +34,7 @@ module.exports = React.createClass
               {
                 width: buttonSize-2
                 height: buttonSize-2
-                viewPort: "0 0 #{strokeWidth} #{strokeWidth}"
+                # viewPort: "0 0 #{strokeWidth} #{strokeWidth}"
                 version: "1.1"
                 xmlns: "http://www.w3.org/2000/svg"
               },
