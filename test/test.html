@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <!-- stylesheet -->
+    <link href="../lib/css/literallycanvas.css" rel="stylesheet">
+
+    <!-- dependency: React.js -->
+    <script src="https://unpkg.com/react@15/dist/react-with-addons.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+
+    <!-- Literally Canvas -->
+    <script src="../lib/js/literallycanvas.js"></script>
+  </head>
+  <body>
+    <!-- where the widget goes. you can do CSS to it. -->
+    <div id="drawing0"></div>
+
+    <!-- kick it off -->
+    <script>
+        LC.init(
+            document.getElementById('drawing0'),
+            {imageURLPrefix: '../lib/img'}
+        );
+    </script>
+  </body>
+</html>
