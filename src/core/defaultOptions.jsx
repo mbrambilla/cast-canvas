@@ -25,6 +25,7 @@ module.exports = {
     require('../tools/Text'),
     require('../tools/Polygon'),
     require('../tools/Pan'),
-    require('../tools/Eyedropper')
+    require('../tools/Eyedropper'),
+    require('../tools/SelectShape')
   ]
 }
