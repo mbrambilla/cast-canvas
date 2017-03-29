@@ -1,26 +1,33 @@
 {ToolWithStroke} = require './base'
 {createShape} = require '../core/shapes'
+util = require '../core/util'
 
 module.exports = class Pencil extends ToolWithStroke
 
   name: 'Pencil'
   iconName: 'pencil'
 
-  eventTimeThreshold: 10
+  pendingPoints: []
+  raf: 0
 
   begin: (x, y, lc) ->
+    @raf = null
+    @pendingPoints = []
     @color = lc.getColor('primary')
     @currentShape = @makeShape()
     @currentShape.addPoint(@makePoint(x, y, lc))
     @lastEventTime = Date.now()
 
   continue: (x, y, lc) ->
-    timeDiff = Date.now() - @lastEventTime
-
-    if timeDiff > @eventTimeThreshold
-      @lastEventTime += timeDiff
-      @currentShape.addPoint(@makePoint(x, y, lc))
-      lc.drawShapeInProgress(@currentShape)
+    @pendingPoints.push({x,y})
+    if !@raf
+      @raf = util.requestAnimationFrame () =>
+        if _this.currentShape # May not exist. Pointer left canvas bounds or mouseup before AF fires?
+          @pendingPoints.forEach (point, i) ->
+            _this.currentShape.addPoint(_this.makePoint(point.x, point.y, lc))
+            lc.drawShapeInProgress(_this.currentShape)
+        @raf = null
+        @pendingPoints = []
 
   end: (x, y, lc) ->
     lc.saveShape(@currentShape)
