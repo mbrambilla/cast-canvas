@@ -6,6 +6,7 @@ module.exports = class Line extends ToolWithStroke
 
   name: 'Line'
   iconName: 'line'
+  cursor: 'crosshair'
 
   optionsStyle: 'line-options-and-stroke-width'
 

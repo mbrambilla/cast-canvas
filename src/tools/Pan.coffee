@@ -6,6 +6,7 @@ module.exports = class Pan extends Tool
 
   name: 'Pan'
   iconName: 'pan'
+  cursor: 'move'
   usesSimpleAPI: false
 
   didBecomeActive: (lc) ->
