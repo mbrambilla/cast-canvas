@@ -32,7 +32,19 @@ module.exports = class SelectShape extends Tool
     @selectCanvas.style['background-color'] = 'transparent'
     @selectCtx = @selectCanvas.getContext('2d')
     @shiftKeyDown=false
+    @_lc = lc
 
+  _selectKeyDownListener: (e) =>
+    console.log(this)
+    if(e.keyCode==46) #delete
+      @_lc.deleteShape(@selectedShape)
+      @_clearCurrentShape(@_lc)
+    else if (e.keyCode==16) #shift
+      @shiftKeyDown=true
+
+  _selectKeyUpListener: (e) =>
+    if (e.keyCode==16) #shift
+      @shiftKeyDown=false
 
   _getSelectionShape: (ctx, backgroundColor=null) ->
     createShape('SelectionBox', {shape: @selectedShape, ctx, backgroundColor})
@@ -120,8 +132,8 @@ module.exports = class SelectShape extends Tool
         @_updateInputEl(lc)
         e.stopPropagation()
 
-      @inputEl.addEventListener 'keydown', => @_updateInputEl(lc, true)
-      @inputEl.addEventListener 'keyup', onChange
+      # @inputEl.addEventListener 'keydown', => @_updateInputEl(lc, true)
+      # @inputEl.addEventListener 'keyup', onChange
       @inputEl.addEventListener 'change', onChange
 
       @_updateInputEl(lc)
@@ -161,7 +173,7 @@ module.exports = class SelectShape extends Tool
     @currentShapeState = null
     lc.setShapesInProgress([])
     lc.repaintLayer('main')
-    document.removeEventListener('keydown', @_selectKeyListener)
+    document.removeEventListener('keydown', @_selectKeyDownListener)
     document.removeEventListener('keyup', @_selectKeyUpListener)
 
   _getDragAction: (lc,point)->
@@ -188,19 +200,6 @@ module.exports = class SelectShape extends Tool
     @_selectShapeUnsubscribe = =>
       for func in selectShapeUnsubscribeFuncs
         func()
-
-    onKeyDown = (e) =>
-      if(e.keyCode==46) #delete
-        lc.deleteShape(@selectedShape)
-        @_clearCurrentShape(lc)
-      else if (e.keyCode==16) #shift
-        @shiftKeyDown=true
-
-
-    onKeyUp = (e) =>
-      if (e.keyCode==16) #shift
-        @shiftKeyDown=false
-
 
     onDown = ({ x, y }) =>
       @dragAction = 'none'
@@ -344,8 +343,6 @@ module.exports = class SelectShape extends Tool
     selectShapeUnsubscribeFuncs.push lc.on 'lc-pointerdown', onDown
     selectShapeUnsubscribeFuncs.push lc.on 'lc-pointerdrag', onDrag
     selectShapeUnsubscribeFuncs.push lc.on 'lc-pointerup', onUp
-    selectShapeUnsubscribeFuncs.push lc.on 'keyDown', onKeyDown
-    selectShapeUnsubscribeFuncs.push lc.on 'keyUp', onKeyUp
 
     @_drawSelectCanvas(lc)
 
