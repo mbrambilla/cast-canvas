@@ -35,7 +35,6 @@ module.exports = class SelectShape extends Tool
     @_lc = lc
 
   _selectKeyDownListener: (e) =>
-    console.log(this)
     if(e.keyCode==46) #delete
       @_lc.deleteShape(@selectedShape)
       @_clearCurrentShape(@_lc)
